@@ -12,7 +12,18 @@ import sys
 
 from zlogo.config.defaults import default_argument_parser
 from zlogo.util.misc import get_version, check_file_exist, check_dir_exist, generate_png, generate_svg_path
-from zlogo.util.utility import parse_default_config, write_yaml_config
+from zlogo.util.utility import parse_default_config, write_yaml_config, get_file_dir
+
+
+def process_flag(flag, data, parser):
+    if flag != 0:
+        if flag == 1:
+            parser._print_message(f'{data} does not exists\n')
+        if flag == 2:
+            parser._print_message(f'{data} does not a file\n')
+        if flag == 3:
+            parser._print_message(f'{data} does not a directory\n')
+        sys.exit(-1)
 
 
 def parse():
@@ -24,7 +35,7 @@ def parse():
     # print(args)
 
     if args.version:
-        print('pnno: v{}'.format(get_version()))
+        print('zlogo: v{}'.format(get_version()))
         sys.exit(0)
 
     if args.config_file:
@@ -34,6 +45,7 @@ def parse():
 
     if args.logo:
         info['logo'] = args.logo
+        info['output'] = args.logo + '.svg'
     if args.font:
         check_file_exist(args.font)
         info['font'] = args.font
@@ -44,7 +56,8 @@ def parse():
     if args.color:
         info['path']['fill'] = args.color
     if args.output:
-        check_dir_exist(args.output)
+        flag = check_dir_exist(args.output)
+        process_flag(flag, args.output, parser)
         info['output'] = generate_svg_path(args.output, info['logo'])
     # print(info)
 
@@ -58,12 +71,18 @@ def main():
     info = parse()
 
     # 执行logo生成操作
-    flag = os.system('../tool/logo -c ../config/')
+    cmd_path = os.path.join(get_file_dir(), '../tool/logo')
+    config_dir = os.path.join(get_file_dir(), '../config/')
+    flag = os.system(f'{cmd_path} -c {config_dir}')
     if flag != 0:
         exit(0)
 
     # 同时生成.png图片
-    generate_png(info['output'])
+    if os.path.isabs(info['output']):
+        generate_png(info['output'])
+    else:
+        output_path = os.path.abspath(info['output'])
+        generate_png(output_path)
 
 
 if __name__ == '__main__':

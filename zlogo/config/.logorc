@@ -1,7 +1,7 @@
-font: /home/zj/.fonts/NotoSerif-SemiCondensedMedium.ttf
-fontSize: '128'
-logo: '341'
-output: /home/zj/341.svg
+font: Blocked.ttf
+fontSize: 512
+logo: adfa
+output: /home/zj/TODO/adfa.svg
 padding: 100
 path:
-  fill: '#2b68a7'
+  fill: '#ad13dc'

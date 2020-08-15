@@ -20,16 +20,21 @@ def get_version():
 
 def check_file_exist(file_path):
     if not os.path.exists(file_path):
-        raise ValueError(f"{file_path} does't exist")
+        # raise ValueError(f"{file_path} does't exist")
+        return 1
     if not os.path.isfile(file_path):
-        raise ValueError(f"{file_path} is not a file")
-
+        # raise ValueError(f"{file_path} is not a file")
+        return 2
+    return 0
 
 def check_dir_exist(dir_path):
     if not os.path.exists(dir_path):
-        raise ValueError(f"{dir_path} does't exist")
+        return 1
+        # raise ValueError(f"{dir_path} does't exist")
     if not os.path.isdir(dir_path):
-        raise ValueError(f"{dir_path} is not a dir")
+        # raise ValueError(f"{dir_path} is not a dir")
+        return 3
+    return 0
 
 
 def generate_svg_path(dir_path, name):

@@ -1,11 +1,11 @@
-font: 'NotoSerif-Italic.ttf'
+font: 'Blocked.ttf'
 fontSize: '128'
 #padding-top: 100
 #padding-bottom: 100
 #padding-left: 100
 #padding-right: 100
-padding: 100
+#padding: 100
 logo: 'ZLOGO'
-output: './zlogo.svg'
+output: './ZLOGO.svg'
 path:
   fill: '#2b68a7'

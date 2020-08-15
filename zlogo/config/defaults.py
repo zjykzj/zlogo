@@ -23,7 +23,7 @@ def default_argument_parser():
 
     ### Optional arguments
 
-    parser.add_argument('-l', '--logo', metavar='LOGO', type=str, default='ZLOGO', help='specify the logo text')
+    parser.add_argument('-l', '--logo', metavar='LOGO', type=str, help='specify the logo text')
     parser.add_argument('-f', '--font', metavar='FONT', type=str, help='path to a font file(.ttf)')
     parser.add_argument('-fs', '--fontsize', metavar='FontSize', type=int, help="specify the font size")
     parser.add_argument('-p', '--padding', metavar='PADDING', type=int, help='specify the border size')
@@ -31,7 +31,7 @@ def default_argument_parser():
 
     parser.add_argument('-c', "--config_file", metavar="CONFIG_FILE", type=str, help="path to config file")
 
-    parser.add_argument('-o', "--output", metavar='OUTPUT', type=str, help='path to output file')
+    parser.add_argument('-o', "--output", metavar='OUTPUT', type=str, help="path to output file's folder")
 
     parser.add_argument('-v', '--version', help='output version infomation', action="store_true"),
 

@@ -7,11 +7,22 @@
 @description: 
 """
 
+import os
 import yaml
 
 
-def parse_default_config(config_file='../config/zlogo.logorc'):
+def get_file_dir():
+    file_path = os.path.realpath(__file__)
+    file_dir = os.path.split(file_path)[0]
+
+    return file_dir
+
+
+def parse_default_config(config_file=None):
     if not config_file:
+        config_file = os.path.join(get_file_dir(), '../config/zlogo.logorc')
+    # print(config_file)
+    if not os.path.exists(config_file):
         raise ValueError('config_file must be specified')
     with open(config_file, 'r', encoding='utf-8') as f:
         info = yaml.load(f.read(), Loader=yaml.Loader)
@@ -21,5 +32,6 @@ def parse_default_config(config_file='../config/zlogo.logorc'):
 def write_yaml_config(info: dict):
     assert isinstance(info, dict)
 
-    with open("../config/.logorc", "w", encoding="utf-8") as f:
+    yaml_config = os.path.join(get_file_dir(), '../config/.logorc')
+    with open(yaml_config, "w", encoding="utf-8") as f:
         yaml.dump(info, f)
