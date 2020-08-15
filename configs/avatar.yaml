@@ -1,0 +1,11 @@
+font: 'NotoSerif-SemiCondensedMedium.ttf'
+fontSize: '512'
+#padding-top: 100
+#padding-bottom: 100
+#padding-left: 100
+#padding-right: 100
+padding: 100
+logo: 'ZLOGO'
+output: './zlogo.svg'
+path:
+  fill: '#2b68a7'

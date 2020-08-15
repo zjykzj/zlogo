@@ -1,0 +1,6 @@
+font: 'NotoSerif-Italic.ttf'
+fontSize: '128'
+logo: 'ZLOGO'
+output: './zlogo.svg'
+path:
+  fill: '#2b68a7'
