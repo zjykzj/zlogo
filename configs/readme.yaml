@@ -1,5 +1,5 @@
 font: 'NotoSerif-Italic.ttf'
-fontSize: '128'
+fontSize: '64'
 logo: 'ZLOGO'
 output: './zlogo.svg'
 path:

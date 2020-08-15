@@ -56,7 +56,7 @@ def parse():
     if args.color:
         info['path']['fill'] = args.color
     if args.output:
-        flag = check_dir_exist(args.output)
+        flag = check_file_exist(args.output)
         process_flag(flag, args.output, parser)
         info['output'] = generate_svg_path(args.output, info['logo'])
     # print(info)
