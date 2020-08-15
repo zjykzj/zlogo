@@ -50,13 +50,13 @@
   },
   "pkg": {
     "scripts": [
-        "lib/*.js"
+      "lib/*.js"
     ],
     "assets": [
       "fonts/*.ttf"
-]
-},
-"scripts": {
-  "build": "pkg . -t node12-linux-x64 -o ../zlogo/tool/logo -d"
-}
+    ]
+  },
+  "scripts": {
+    "build": "pkg . -t node12-linux-x64 -o ../zlogo/tool/logo -d"
+  }
 }
