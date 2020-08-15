@@ -1,2 +1,5 @@
 .idea
 *.pyc
+zlogo.egg-info/
+build/
+dist/
