@@ -99,6 +99,7 @@ optional arguments:
 * [bubkoo/logo.svg](https://github.com/bubkoo/logo.svg)
 * [deeplook/svglib](https://github.com/deeplook/svglib)
 * [Google Noto Fonts](https://www.google.com/get/noto/)
+* [vercel/pkg](https://github.com/vercel/pkg)
 
 ## 参与贡献方式
 
