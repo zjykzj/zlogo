@@ -31,7 +31,7 @@ def default_argument_parser():
 
     parser.add_argument('-c', "--config_file", metavar="CONFIG_FILE", type=str, help="path to config file")
 
-    parser.add_argument('-o', "--output", metavar='OUTPUT', type=str, help="path to output file")
+    parser.add_argument('-o', "--output", metavar='OUTPUT', type=str, help="path to output file(.svg)")
 
     parser.add_argument('-v', '--version', help='output version infomation', action="store_true"),
 

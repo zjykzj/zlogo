@@ -18,7 +18,7 @@ def get_file_dir():
     return file_dir
 
 
-def parse_default_config(config_file=None):
+def parse_config(config_file=None):
     if not config_file:
         config_file = os.path.join(get_file_dir(), '../config/zlogo.logorc')
     # print(config_file)

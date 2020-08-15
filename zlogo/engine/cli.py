@@ -11,23 +11,12 @@ import os
 import sys
 
 from zlogo.config.defaults import default_argument_parser
-from zlogo.util.misc import get_version, check_file_exist, check_dir_exist, generate_png, generate_svg_path
-from zlogo.util.utility import parse_default_config, write_yaml_config, get_file_dir
-
-
-def process_flag(flag, data, parser):
-    if flag != 0:
-        if flag == 1:
-            parser._print_message(f'{data} does not exists\n')
-        if flag == 2:
-            parser._print_message(f'{data} does not a file\n')
-        if flag == 3:
-            parser._print_message(f'{data} does not a directory\n')
-        sys.exit(-1)
+from zlogo.util.misc import get_version, check_file_exist, generate_png, generate_svg_path
+from zlogo.util.utility import parse_config, write_yaml_config, get_file_dir
 
 
 def parse():
-    info = parse_default_config()
+    info = parse_config()
     # print(info)
 
     parser = default_argument_parser()
@@ -39,9 +28,9 @@ def parse():
         sys.exit(0)
 
     if args.config_file:
-        check_file_exist(args.font)
-        config_info = parse_default_config(args.config_file)
-        info.update(config_info)
+        if check_file_exist(args.font):
+            cinfo = parse_config(args.config_file)
+            info.update(cinfo)
 
     if args.logo:
         info['logo'] = args.logo
@@ -56,10 +45,10 @@ def parse():
     if args.color:
         info['path']['fill'] = args.color
     if args.output:
-        flag = check_file_exist(args.output)
-        process_flag(flag, args.output, parser)
-        info['output'] = generate_svg_path(args.output, info['logo'])
-    # print(info)
+        if os.path.isdir(args.output):
+            info['output'] = generate_svg_path(args.output, info['logo'])
+        elif args.output.split('.')[-1] == 'svg':
+            info['output'] = args.output
 
     # 写入配置好的文件
     write_yaml_config(info)
