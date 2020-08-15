@@ -21,9 +21,8 @@ DESCRIPTION = "A small example package"
 URL = "https://github.com/zjykzj/zlogo"
 PYTHON_REQUIRES = ">=3.6"
 INSTALL_REQUIRES = [
-    "yacs >= 0.1.7",
-    "opencv_contrib_python >= 4.2.0",
-    "numpy >= 1.17.2"
+    "reportlab == 3.5.47"
+    "svglib == 1.0.0"
 ]
 CLASSIFIERS = [
     "Programming Language :: Python :: 3",
@@ -97,6 +96,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url=URL,
     packages=setuptools.find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
+    package_data={'zlogo': ['tool/logo', 'config/*.logorc']},
     classifiers=CLASSIFIERS,
     python_requires=PYTHON_REQUIRES,
     entry_points={
