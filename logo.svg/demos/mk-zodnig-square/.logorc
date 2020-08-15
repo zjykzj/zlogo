@@ -1,0 +1,7 @@
+logo: 'Square'
+font: 'mk-zodnig-square.ttf'
+fontSize: 96
+output: './demos/mk-zodnig-square/square.svg'
+path:
+  fill: '#fd742d'
+#  stroke: '#fd742d'

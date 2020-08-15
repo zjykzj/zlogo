@@ -1,0 +1,9 @@
+logo: 'Gubblebum '
+font: 'gubblebum.ttf'
+output: './demos/gubblebum/gubblebum.svg'
+spacing: 10
+divided: true
+path:
+  fill: '#6af72e'
+path0:
+  fill: '#fc428f'

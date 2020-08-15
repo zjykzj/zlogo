@@ -1,0 +1,5 @@
+font: 'gubblebum-glocky.ttf'
+logo: 'npm '
+output: './demos/gubblebum-blocky/npm.svg'
+path:
+  fill: '#cb3837'
