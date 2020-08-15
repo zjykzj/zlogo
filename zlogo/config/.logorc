@@ -1,0 +1,7 @@
+font: /home/zj/.fonts/NotoSerif-SemiCondensedMedium.ttf
+fontSize: '128'
+logo: '341'
+output: /home/zj/341.svg
+padding: 100
+path:
+  fill: '#2b68a7'
