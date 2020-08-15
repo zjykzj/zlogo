@@ -28,15 +28,14 @@ def parse():
         sys.exit(0)
 
     if args.config_file:
-        if check_file_exist(args.font):
+        if check_file_exist(args.config_file):
             cinfo = parse_config(args.config_file)
             info.update(cinfo)
 
     if args.logo:
         info['logo'] = args.logo
         info['output'] = args.logo + '.svg'
-    if args.font:
-        check_file_exist(args.font)
+    if args.font and check_file_exist(args.font):
         info['font'] = args.font
     if args.fontsize:
         info['fontSize'] = args.fontsize

@@ -5,7 +5,7 @@ fontSize: '256'
 #padding-left: 100
 #padding-right: 100
 padding: 100
-logo: 'ZLOGO'
-output: './zlogo.svg'
+logo: 'ZJ'
+output: './zj.svg'
 path:
   fill: '#2b68a7'
