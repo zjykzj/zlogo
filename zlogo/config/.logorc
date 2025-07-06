@@ -1,7 +1,6 @@
-font: Blocked.ttf
-fontSize: 512
-logo: adfa
-output: /home/zj/TODO/adfa.svg
-padding: 100
+font: NotoSerif-Italic.ttf
+fontSize: '64'
+logo: ModelFlow
+output: ModelFlow.svg
 path:
-  fill: '#ad13dc'
+  fill: '#2b68a7'

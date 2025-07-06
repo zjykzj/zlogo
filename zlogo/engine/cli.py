@@ -9,69 +9,108 @@
 
 import os
 import sys
+from pathlib import Path
+from typing import Dict, Any
 
 from zlogo.config.defaults import default_argument_parser
 from zlogo.util.misc import get_version, check_file_exist, generate_png, generate_svg_path
 from zlogo.util.utility import parse_config, write_yaml_config, get_file_dir
 
 
-def parse():
-    info = parse_config()
-    # print(info)
+def parse_args_and_update_config() -> Dict[str, Any]:
+    """
+    Parse command-line arguments and update config accordingly.
 
+    Returns:
+        dict: Updated configuration dictionary.
+    """
+    # Load base config
+    config = parse_config()
+
+    # Parse command-line args
     parser = default_argument_parser()
     args = parser.parse_args()
-    # print(args)
 
     if args.version:
-        print('zlogo: v{}'.format(get_version()))
+        print(f"zlogo: v{get_version()}")
         sys.exit(0)
 
+    # Update with config file if provided
     if args.config_file:
-        if check_file_exist(args.config_file):
-            cinfo = parse_config(args.config_file)
-            info.update(cinfo)
+        if not check_file_exist(args.config_file):
+            raise FileNotFoundError(f"Config file not found: {args.config_file}")
+        custom_config = parse_config(args.config_file)
+        config.update(custom_config)
 
+    # Override config values based on command-line inputs
     if args.logo:
-        info['logo'] = args.logo
-        info['output'] = args.logo + '.svg'
+        config["logo"] = args.logo
+        config["output"] = f"{args.logo}.svg"
+
     if args.font and check_file_exist(args.font):
-        info['font'] = args.font
+        config["font"] = args.font
+
     if args.fontsize:
-        info['fontSize'] = args.fontsize
+        config["fontSize"] = args.fontsize
+
     if args.padding:
-        info['padding'] = args.padding
+        config["padding"] = args.padding
+
     if args.color:
-        info['path']['fill'] = args.color
+        config["path"]["fill"] = args.color
+
     if args.output:
-        if os.path.isdir(args.output):
-            info['output'] = generate_svg_path(args.output, info['logo'])
-        elif args.output.split('.')[-1] == 'svg':
-            info['output'] = args.output
+        output_path = Path(args.output)
+        if output_path.is_dir():
+            config["output"] = generate_svg_path(str(output_path), config["logo"])
+        elif output_path.suffix.lower() == ".svg":
+            config["output"] = str(output_path)
 
-    # 写入配置好的文件
-    write_yaml_config(info)
+    # Write updated config to temporary .logorc file
+    write_yaml_config(config)
 
-    return info
-
-
-def main():
-    info = parse()
-
-    # 执行logo生成操作
-    cmd_path = os.path.join(get_file_dir(), '../tool/logo')
-    config_dir = os.path.join(get_file_dir(), '../config/')
-    flag = os.system(f'{cmd_path} -c {config_dir}')
-    if flag != 0:
-        exit(0)
-
-    # 同时生成.png图片
-    if os.path.isabs(info['output']):
-        generate_png(info['output'])
-    else:
-        output_path = os.path.abspath(info['output'])
-        generate_png(output_path)
+    return config
 
 
-if __name__ == '__main__':
+def run_logo_generator(config: Dict[str, Any]) -> None:
+    """
+    Run the external logo generation tool using the given config.
+
+    Args:
+        config (dict): Configuration dictionary containing at least 'output'
+    """
+    script_dir = Path(get_file_dir())
+    cmd_path = script_dir.joinpath("..", "tool", "logo").resolve()
+    config_dir = script_dir.joinpath("..", "config").resolve()
+
+    # Execute the external tool
+    exit_code = os.system(f'"{cmd_path}" -c "{config_dir}"')
+    if exit_code != 0:
+        print("Error: Logo generation failed.")
+        sys.exit(exit_code)
+
+    # Generate PNG version from SVG
+    svg_output = config.get("output")
+    if not svg_output:
+        raise ValueError("Output path not set in config.")
+
+    svg_path = Path(svg_output)
+    if not svg_path.is_absolute():
+        svg_path = svg_path.resolve()
+
+    generate_png(str(svg_path))
+    print(f"✅ Successfully generated logo: {svg_path}")
+
+
+def main() -> None:
+    """Main entry point for the CLI interface."""
+    try:
+        config = parse_args_and_update_config()
+        run_logo_generator(config)
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
     main()
