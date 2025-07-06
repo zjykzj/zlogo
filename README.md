@@ -1,11 +1,4 @@
-<!-- <div align="right">
-  Language:
-    🇺🇸
-  <a title="Chinese" href="./README.zh-CN.md">🇨🇳</a>
-  <!-- <a title="俄语" href="../ru/README.md">🇷🇺</a> -->
-</div> -->
-
- <div align="center"><a title="" href="https://github.com/zjykzj/zlogo"><img align="center" src="./imgs/zlogo.png"></a></div>
+<div align="center"><a title="" href="https://github.com/zjykzj/zlogo"><img align="center" src="./imgs/zlogo.svg"></a></div>
 
 <p align="center">
   «zlogo» allows you to input text to generate logo images
