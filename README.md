@@ -8,7 +8,7 @@
  <div align="center"><a title="" href="https://github.com/zjykzj/zlogo"><img align="center" src="./imgs/zlogo.png"></a></div>
 
 <p align="center">
-  «zlogo» supports inputting text to generate logo images
+  «zlogo» allows you to input text to generate logo images
 <br>
 <br>
   <a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square"></a>
@@ -17,7 +17,9 @@
   <a href="https://pypi.org/project/zlogo/"><img src="https://img.shields.io/badge/PYPI-ZLOGO-brightgreen"></a>
 </p>
 
-Generate logo from text and obtain SVG and PNG format files simultaneously. Implementation examples are as follows:
+Generate logo from text and obtain SVG and PNG format files simultaneously.
+
+Implementation examples are as follows:
 
 ```
 # generate logo `hahaha`
