@@ -7,45 +7,45 @@
 @description: 
 """
 
-import setuptools
 import os
-import shutil
 import sys
+import shutil
+from pathlib import Path
+from setuptools import setup, find_packages, Command
 
 # ---------------------- #
 # 超参数设置
+
 NAME = "zlogo"
 AUTHOR = "zj"
 AUTHOR_EMAIL = "wy163zhuj@163.com"
-DESCRIPTION = "A small example package"
+DESCRIPTION = "A simple logo generator that creates SVG and PNG logos from text."
 URL = "https://github.com/zjykzj/zlogo"
 PYTHON_REQUIRES = ">=3.6"
 INSTALL_REQUIRES = [
-    "reportlab == 3.5.47"
-    "svglib == 1.0.0"
+    "cairosvg >= 2.5.0",  # 用于SVG转PNG
 ]
+EXTRA_REQUIRE = {
+    "dev": ["twine", "wheel", "setuptools"],  # 上传/打包工具
+}
 CLASSIFIERS = [
     "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
-    "License :: OSI Approved :: Apache Software License"
+    "Topic :: Multimedia :: Graphics",
+    "Intended Audience :: Developers",
 ]
 SOURCE_FOLDER = 'zlogo'
-CONSOLE_SCRIPTS = 'zlogo = zlogo.engine.cli:main'
+CONSOLE_SCRIPTS = ['zlogo = zlogo.engine.cli:main']
 
 
 # ---------------------- #
 
 
-class UploadCommand(setuptools.Command):
-    """Support setup.py upload."""
-
+class UploadCommand(Command):
+    """Custom command to build and upload the package to PyPI."""
     description = 'Build and publish the package.'
     user_options = []
-
-    @staticmethod
-    def status(s):
-        """Prints things in bold."""
-        print('\033[1m{0}\033[0m'.format(s))
 
     def initialize_options(self):
         pass
@@ -53,41 +53,57 @@ class UploadCommand(setuptools.Command):
     def finalize_options(self):
         pass
 
+    @staticmethod
+    def status(msg):
+        print(f"\033[1m{msg}\033[0m")
+
     def run(self):
-        try:
-            here = os.path.abspath(os.path.dirname(__file__))
-            self.status('Removing previous builds…')
-            shutil.rmtree(os.path.join(here, 'dist'))
-        except OSError:
-            pass
+        here = Path(__file__).parent.resolve()
 
-        self.status('Building Source and Wheel (universal) distribution…')
-        os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
+        self.status("Removing previous builds…")
+        dist_dir = here / "dist"
+        if dist_dir.exists():
+            try:
+                shutil.rmtree(dist_dir)
+            except Exception as e:
+                print(f"Error removing dist directory: {e}")
+                sys.exit(1)
 
-        self.status('Uploading the package to PyPI via Twine…')
-        os.system('twine upload dist/*')
+        self.status("Building Source and Wheel distribution…")
+        cmd = f"{sys.executable} setup.py sdist bdist_wheel --universal"
+        if os.system(cmd) != 0:
+            self.status("Build failed.")
+            sys.exit(1)
 
-        self.status('Pushing git tags…')
-        os.system('git tag v{0}'.format(get_version()))
-        os.system('git push --tags')
+        self.status("Uploading package to PyPI via Twine…")
+        if os.system("twine upload dist/*") != 0:
+            self.status("Upload failed.")
+            sys.exit(1)
 
+        self.status("Pushing git tags…")
+        version = get_version()
+        if os.system(f"git tag v{version}") != 0 or os.system("git push --tags") != 0:
+            self.status("Git tag/push failed.")
+            sys.exit(1)
+
+        self.status("Done.")
         sys.exit()
 
 
 def get_version():
-    init_py_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), SOURCE_FOLDER, "__init__.py")
-    init_py = open(init_py_path, "r").readlines()
-    version_line = [l.strip() for l in init_py if l.startswith("__version__")][0]
-    version = version_line.split("=")[-1].strip().strip("'\"")
+    init_path = Path(__file__).parent / SOURCE_FOLDER / "__init__.py"
+    with open(init_path, "r", encoding="utf-8") as f:
+        for line in f:
+            if line.startswith("__version__"):
+                return line.split("=")[1].strip().strip("\"'")
+    raise RuntimeError("Version not found in __init__.py")
 
-    return version
 
-
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-setuptools.setup(
-    name=NAME,  # Replace with your own username
+setup(
+    name=NAME,
     version=get_version(),
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
@@ -95,16 +111,22 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=URL,
-    packages=setuptools.find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
-    package_data={'zlogo': ['tool/logo', 'config/*.logorc']},
-    classifiers=CLASSIFIERS,
-    python_requires=PYTHON_REQUIRES,
-    entry_points={
-        'console_scripts': [
-            CONSOLE_SCRIPTS
+    packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
+    package_data={
+        'zlogo': [
+            'tool/logo',
+            'config/*.logorc',
         ]
     },
+    include_package_data=True,
+    classifiers=CLASSIFIERS,
+    python_requires=PYTHON_REQUIRES,
+    install_requires=INSTALL_REQUIRES,
+    extras_require=EXTRA_REQUIRE,
+    entry_points={
+        "console_scripts": CONSOLE_SCRIPTS,
+    },
     cmdclass={
-        'upload': UploadCommand,
+        "upload": UploadCommand,
     },
 )
