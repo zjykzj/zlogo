@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Dict, Any
 
 from zlogo.config.defaults import default_argument_parser
-from zlogo.util.misc import get_version, check_file_exist, generate_png, generate_svg_path
+from zlogo.util.misc import get_version, check_file_exist, generate_png_with_white_background, generate_svg_path
 from zlogo.util.utility import parse_config, write_yaml_config, get_file_dir
 
 
@@ -98,7 +98,7 @@ def run_logo_generator(config: Dict[str, Any]) -> None:
     if not svg_path.is_absolute():
         svg_path = svg_path.resolve()
 
-    generate_png(str(svg_path))
+    generate_png_with_white_background(str(svg_path), suffix='')
     print(f"✅ Successfully generated logo: {svg_path}")
 
 
