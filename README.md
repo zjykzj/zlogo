@@ -12,8 +12,6 @@
 
 Generate logo from text and obtain SVG and PNG format files simultaneously.
 
-Implementation examples are as follows:
-
 ```
 # generate logo `hahaha`
 $ zlogo -l hahaha
@@ -47,7 +45,7 @@ I want to design a personal logo. After find a lot of information, found that
   
 So i wrote this script for everyone's convenience
 
-***### Update in 2025***
+### ***Update in 2025***
 
 ***[Kozea/CairoSVG](https://github.com/Kozea/CairoSVG?tab=readme-ov-file) is better suited for use with **zlogo** compared to `svglib`.***
 
@@ -81,8 +79,6 @@ optional arguments:
                         path to output file(.svg)
   -v, --version         output version infomation
 ```
-
-It can be configured through command line parameters or through configuration files
 
 * For configuration files, please refer to `avatar.yaml` and `readme.yaml` in the `configs` directory
 * For font files
