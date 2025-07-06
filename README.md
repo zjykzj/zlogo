@@ -1,11 +1,11 @@
-<div align="right">
+<!-- <div align="right">
   Language:
     🇺🇸
   <a title="Chinese" href="./README.zh-CN.md">🇨🇳</a>
   <!-- <a title="俄语" href="../ru/README.md">🇷🇺</a> -->
 </div>
 
- <div align="center"><a title="" href="https://github.com/zjykzj/zlogo"><img align="center" src="./imgs/zlogo.png"></a></div>
+ <div align="center"><a title="" href="https://github.com/zjykzj/zlogo"><img align="center" src="./imgs/zlogo.png"></a></div> -->
 
 <p align="center">
   «zlogo» allows you to input text to generate logo images
@@ -54,9 +54,9 @@ I want to design a personal logo. After find a lot of information, found that
   
 So i wrote this script for everyone's convenience
 
-### Update in 2025
+***### Update in 2025***
 
-[Kozea/CairoSVG](https://github.com/Kozea/CairoSVG?tab=readme-ov-file) is better suited for use with **zlogo** compared to `svglib`. It provides higher rendering quality and better support for modern SVG features.
+***[Kozea/CairoSVG](https://github.com/Kozea/CairoSVG?tab=readme-ov-file) is better suited for use with **zlogo** compared to `svglib`.***
 
 ## Install
 
