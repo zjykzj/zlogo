@@ -4,7 +4,13 @@
 @date: 2020/7/25 下午7:33
 @file: setup.py.py
 @author: zj
-@description: 
+@description:
+
+python setup.py clean --all
+rm -rf dist/
+python setup.py sdist bdist_wheel
+twine upload dist/*
+
 """
 
 import os
@@ -30,8 +36,8 @@ EXTRA_REQUIRE = {
 }
 CLASSIFIERS = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
+    "License :: OSI Approved :: Apache Software License",
     "Topic :: Multimedia :: Graphics",
     "Intended Audience :: Developers",
 ]
@@ -70,7 +76,9 @@ class UploadCommand(Command):
                 sys.exit(1)
 
         self.status("Building Source and Wheel distribution…")
-        cmd = f"{sys.executable} setup.py sdist bdist_wheel --universal"
+        # 删除 --universal，避免误导为兼容 Python 2
+        # cmd = f"{sys.executable} setup.py sdist bdist_wheel --universal"
+        cmd = f"{sys.executable} setup.py sdist bdist_wheel"
         if os.system(cmd) != 0:
             self.status("Build failed.")
             sys.exit(1)
