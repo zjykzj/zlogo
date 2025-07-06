@@ -8,7 +8,7 @@
  <div align="center"><a title="" href="https://github.com/zjykzj/zlogo"><img align="center" src="./imgs/zlogo.png"></a></div>
 
 <p align="center">
-  «zlogo» combined with <a title="bubkoo/logo.svg" href="https://github.com/bubkoo/logo.svg" >logo.svg</a> and <a title="deeplook/svglib" href="https://github.com/deeplook/svglib">svglib</a>, can generate custom logo images in PNG format
+  «zlogo» supports inputting text to generate logo images
 <br>
 <br>
   <a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square"></a>
@@ -17,7 +17,7 @@
   <a href="https://pypi.org/project/zlogo/"><img src="https://img.shields.io/badge/PYPI-ZLOGO-brightgreen"></a>
 </p>
 
-Implementation examples are as follows:
+Generate logo from text and obtain SVG and PNG format files simultaneously. Implementation examples are as follows:
 
 ```
 # generate logo `hahaha`
@@ -51,6 +51,10 @@ I want to design a personal logo. After find a lot of information, found that
 2. [svglib](https://github.com/deeplook/svglib) can convert svg to png
   
 So i wrote this script for everyone's convenience
+
+### Update in 2025
+
+[Kozea/CairoSVG](https://github.com/Kozea/CairoSVG?tab=readme-ov-file) is better suited for use with **zlogo** compared to `svglib`. It provides higher rendering quality and better support for modern SVG features.
 
 ## Install
 
@@ -102,16 +106,11 @@ It can be configured through command line parameters or through configuration fi
 * [deeplook/svglib](https://github.com/deeplook/svglib)
 * [Google Noto Fonts](https://www.google.com/get/noto/)
 * [vercel/pkg](https://github.com/vercel/pkg)
+* [Kozea/CairoSVG](https://github.com/Kozea/CairoSVG?tab=readme-ov-file)
 
 ## Contributing
 
-Anyone's participation is welcome! Open an [issue](https://gitee.com/zjykzj/zlogo/issues) or submit PRs.
-
-Small note:
-
-* Git submission specifications should be complied with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
-* If versioned, please conform to the [Semantic Versioning 2.0.0](https://semver.org) specification
-* If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
+Anyone's participation is welcome! Open an [issue](https://github.com/zjykzj/zlogo/issues) or submit PRs.
 
 ## License
 
