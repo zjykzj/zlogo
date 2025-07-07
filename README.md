@@ -12,19 +12,6 @@
 
 Generate logo from text and obtain SVG and PNG format files simultaneously.
 
-```
-# generate logo `hahaha`
-$ zlogo -l hahaha
-# specifies that the font size is 100
-$ zlogo -fs 100
-# specifies that the surrounding blank fill size is 100
-$ zlogo -p 100
-# specify the output path
-$ zlogo -o ./zlogo.svg
-# specify the configuration file path
-$ zlogo -c ~/zlogo/configs/readme.yaml
-```
-
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
@@ -45,9 +32,9 @@ I want to design a personal logo. After find a lot of information, found that
   
 So i wrote this script for everyone's convenience
 
-### ***Update in 2025***
+***Update in 2025***
 
-***[Kozea/CairoSVG](https://github.com/Kozea/CairoSVG?tab=readme-ov-file) is better suited for use with **zlogo** compared to `svglib`.***
+*[Kozea/CairoSVG](https://github.com/Kozea/CairoSVG?tab=readme-ov-file) is better suited for use with **zlogo** compared to `svglib`.*
 
 ## Install
 
@@ -58,34 +45,39 @@ $ pip install zlogo
 ## Usage
 
 ```
-$ zlogo --help
-usage: zlogo [-h] [-l LOGO] [-f FONT] [-fs FontSize] [-p PADDING]
-             [--color COLOR] [-c CONFIG_FILE] [-o OUTPUT] [-v]
+# Generate a logo with the text "hahaha"
+$ zlogo -l hahaha
 
-custom logo - ZLOGO
+# Specify the font size as 100
+$ zlogo -fs 100
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -l LOGO, --logo LOGO  specify the logo text
-  -f FONT, --font FONT  path to a font file(.ttf)
-  -fs FontSize, --fontsize FontSize
-                        specify the font size
-  -p PADDING, --padding PADDING
-                        specify the border size
-  --color COLOR         sepcify the text' color
-  -c CONFIG_FILE, --config_file CONFIG_FILE
-                        path to config file
-  -o OUTPUT, --output OUTPUT
-                        path to output file(.svg)
-  -v, --version         output version infomation
+# Set padding around the logo to 100 pixels
+$ zlogo -p 100
+
+# Define the output file path
+$ zlogo -o ./zlogo.svg
+
+# Use a configuration file to customize the logo
+$ zlogo -c ~/zlogo/configs/readme.yaml
 ```
 
-* For configuration files, please refer to `avatar.yaml` and `readme.yaml` in the `configs` directory
-* For font files
-  1. If you specify with the parameter `-f`, you must specify the exact path
-  2. If you use the configuration file to specify, you can put the font file in the ` ~/.fonts ` directory and specify the font file name in the configuration file
+### 📁 Configuration File
 
-**Note: the setting of command line parameters overwrites the configuration file**
+* For available configuration options, please refer to the example files: `avatar.yaml` and `readme.yaml` in the `configs/` directory.
+* Command-line arguments **take precedence over** settings in the configuration file.
+
+### 🔤 Font Files
+
+There are two ways to specify a custom font:
+
+1. **Using the `-f` parameter**
+    ```shell
+    # You must provide the full path to a .ttf (TrueType) font file
+    $ zlogo -f /path/to/your/font.ttf
+    ```
+2. **Using a configuration file**
+ 
+    Place your font file in the `~/.fonts/` directory, and then specify only the filename (not the full path) in the configuration file.
 
 ## Maintainers
 
